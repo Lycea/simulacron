@@ -53,6 +53,9 @@ main_menue_item = 1
 selected_state_idx = 1
 
 run_state = nil
+
+update_timer = g.lib.timer(0.1)
+draw_timer   = g.lib.timer(0.1)
 ----------------------------------------------------------- 
 -- special data fields for debugging / testing only 
 ----------------------------------------------------------- 
@@ -123,8 +126,10 @@ function game.play(dt)
     
 
   
- 
+ if update_timer:check() then
   run_state:update()
+ end
+
   
   
   -- Enemy behaviour basic / Enemy turn
@@ -145,8 +150,8 @@ end
 
  
 function game.draw() 
-    
-    run_state:draw()
+
+  run_state:draw()
 end 
  
  
@@ -170,9 +175,26 @@ end
 function game.MouseHandle(x,y,btn) 
    mouse_click={x=x,y=y,btn=btn}
 
-   table.insert(g.var.entitys,g.lib.entity( 
-                    {pos = {x=x/5,y=y/5}
+  if btn == 1 then
+    table.insert(g.var.entitys,g.lib.entity( 
+                    {
+                      pos = {
+                              x=math.floor(x/5),
+                              y=math.floor(y/5) },
+                      state = "do_tasks"
                     }  ))
+  elseif btn == 2 then
+    local tmp_entity = g.lib.entity( 
+      {
+        pos = {
+                x=math.floor(x/5),
+                y=math.floor(y/5) },
+        state = "_base_state",
+        tags ={"tree"}
+      }  )
+    tmp_entity:add_component("tree", g.lib.tree())
+    table.insert(g.var.entitys,tmp_entity)
+  end
 end 
  
 function game.MouseMoved(mx,my) 
