@@ -7,7 +7,7 @@ function chop:new(parent)
 end
 
 function chop:update()
-    print("update chop...")
+    --print("update chop...")
     if self.chop_target == nil then
         table.insert(self.parent.villager.tasks,
                      g.tasks.find("tree",self.parent,

@@ -34,14 +34,16 @@ end
 
 
 function villager:update_tasks()
-   print("updating tasks...")
+   --print("updating tasks...")
 
-   print(#self.tasks)
+   --print(#self.tasks)
     if #self.tasks ~= 0 then
         local ret = self.tasks[#self.tasks]:update()
         if ret ~= nil then
                 self:pop_task()
         end
+    else
+      self:add_task( self.village:get_task(self.parent) )
     end
 end
 
