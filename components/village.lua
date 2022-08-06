@@ -26,11 +26,14 @@ end
 
 
 function village:get_task(who)
-    if self.population_cap + self.population_in_progress<= self.population then
+    if self.population_cap + self.population_in_progress <= self.population then
         print("pop stats",self.population_cap,self.population_in_progress,self.population)
         return g.tasks.build("house",who,self)
-    else
+    elseif self.storage.wood < 100 then
       return g.tasks.chop(who)
+    else
+      return g.tasks.wander(who)
+      --return g.tasks.chop(who)
     end
 end
 

@@ -126,9 +126,9 @@ function game.play(dt)
     
 
   
- if update_timer:check() then
+-- if update_timer:check() then
   run_state:update()
- end
+-- end
 
   
   

@@ -5,7 +5,7 @@ function house:new(pos,parent)
     self.parent = parent
 
     self.state = "building"
-    self.parent.population_in_porgress = self.parent.population_in_progress +5
+    self.parent.population_in_progress = self.parent.population_in_progress +5
 end
 
 function house:draw()
@@ -33,7 +33,7 @@ end
 function house:finish()
     self.parent.population_cap = self.parent.population_cap + 5
     self.state = "done"
-    self.parent.population_in_porgress = self.parent.population_in_progress -5
+    self.parent.population_in_progress = self.parent.population_in_progress -5
 end
 
 function house:destroy()
