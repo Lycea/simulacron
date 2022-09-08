@@ -35,6 +35,8 @@ globals.lib.villager = require("components.villager")
 
 globals.lib.tree =require("components.specials.tree")
 
+globals.lib.jobs = require("components.jobs")
+
 -----------------
 -- VARS
 -----------------
@@ -43,7 +45,8 @@ globals.var = {}
 globals.var.entitys ={}
 globals.var.map ={}
 
-globals.tasks =globals.lib.tasks
+globals.tasks = globals.lib.tasks
+globals.jobs  = globals.lib.jobs
 
 globals.var.villages = {}
 

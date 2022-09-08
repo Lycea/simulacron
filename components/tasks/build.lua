@@ -22,7 +22,7 @@ function build:new(what,who,village_ref)
     local pos      = point_in_circle(self._village.pos, radius, angle )
     pos.x = math.floor(pos.x)
     pos.y = math.floor(pos.y)
-                                 
+    
     self.tmp_building = self._village:add_building(what, pos)
 end
 
@@ -37,7 +37,18 @@ function build:update()
             end
         end
         self._checked_components = true
+        
+        for resource, amount in pairs(self._recipie) do
+            self._village:get_ressource(resource,amount)
+        end
+        
+        self.parent.mover:set_goal(self.tmp_building.pos)
     end
+    
+    if self.parent.mover:done() == false then
+      return
+    end
+    
     
     self._build_time = self._build_time - 1
     if self._build_time == 0 then

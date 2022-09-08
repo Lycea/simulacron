@@ -83,9 +83,9 @@ function goal_based:update()
         else
             self.__done =true
 
-            print("goal reached", 
-            self.goal.x.." "..self.goal.y,"|",
-            self.parent.pos.x.." "..self.parent.pos.y)
+            --print("goal reached", 
+--            self.goal.x.." "..self.goal.y,"|",
+--            self.parent.pos.x.." "..self.parent.pos.y)
         end
     end
 

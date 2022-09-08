@@ -54,8 +54,7 @@ selected_state_idx = 1
 
 run_state = nil
 
-update_timer = g.lib.timer(0.1)
-draw_timer   = g.lib.timer(0.1)
+update_timer = g.lib.timer(0.1/2)
 ----------------------------------------------------------- 
 -- special data fields for debugging / testing only 
 ----------------------------------------------------------- 
@@ -126,9 +125,9 @@ function game.play(dt)
     
 
   
- if update_timer:check() then
+if update_timer:check() then
   run_state:update()
- end
+end
 
   
   
@@ -181,7 +180,8 @@ function game.MouseHandle(x,y,btn)
                       pos = {
                               x=math.floor(x/5),
                               y=math.floor(y/5) },
-                      state = "do_tasks"
+                      state = "do_tasks",
+                      color = {255,255,255}
                     }  ))
   elseif btn == 2 then
     local tmp_entity = g.lib.entity( 
@@ -190,8 +190,10 @@ function game.MouseHandle(x,y,btn)
                 x=math.floor(x/5),
                 y=math.floor(y/5) },
         state = "_base_state",
-        tags ={"tree"}
+        tags ={"tree"},
+        color = {0,255,0}
       }  )
+    tmp_entity:add_active_callback("tree", "check")
     tmp_entity:add_component("tree", g.lib.tree())
     table.insert(g.var.entitys,tmp_entity)
   end
