@@ -12,6 +12,10 @@ function init(base)
         for _,entity in pairs(g.var.entitys) do
             entity:update()
         end
+
+        for _,village in pairs(g.var.villages) do
+            village:update()
+        end
     end
 
     function sim_run:draw()

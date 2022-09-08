@@ -54,8 +54,7 @@ selected_state_idx = 1
 
 run_state = nil
 
-update_timer = g.lib.timer(0.000000001)
-draw_timer   = g.lib.timer(0.1)
+update_timer = g.lib.timer(0.1/2)
 ----------------------------------------------------------- 
 -- special data fields for debugging / testing only 
 ----------------------------------------------------------- 
@@ -126,9 +125,9 @@ function game.play(dt)
     
 
   
--- if update_timer:check() then
+if update_timer:check() then
   run_state:update()
--- end
+end
 
   
   
