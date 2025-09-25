@@ -33,9 +33,14 @@ globals.lib.buildings = require("components.buildings.buildings")
 globals.lib.village = require("components.village")
 globals.lib.villager = require("components.villager")
 
-globals.lib.tree =require("components.specials.tree")
+globals.lib.tree     = require("components.specials.tree")
+globals.lib.stone     = require("components.specials.stone")
 
 globals.lib.jobs = require("components.jobs")
+
+globals.lib.ui       = require("helper.SimpleUI.SimpleUI")() --- @module "SimpleUI""
+globals.lib.ui:init()
+
 
 -----------------
 -- VARS
@@ -45,9 +50,23 @@ globals.var = {}
 globals.var.entitys ={}
 globals.var.map ={}
 
+globals.var.selected_placement_type = "tree"
+
+globals.var.valid_types             = {
+    tree = true,
+    stone = true,
+    people = true
+}
+
+globals.var.id_to_type_list ={}
+
+
 globals.tasks = globals.lib.tasks
 globals.jobs  = globals.lib.jobs
 
 globals.var.villages = {}
+
+globals.var.ui = {}
+
 
 return globals

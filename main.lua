@@ -9,6 +9,11 @@ debuger = {
 }
 
 
+scr_w , scr_h =love.graphics.getDimensions()
+
+-- scr_w = 0
+-- scr_h = 0
+
 class_base= require("helper.classic")
 console =require("helper.console")
 timer =require("helper.timer")
@@ -16,15 +21,10 @@ timer =require("helper.timer")
 game =require("game")
 
 
-
-
-
 local maj,min,rev=love.getVersion()
 if maj >= 11 then
     require("helper.cindy").applyPatch()
 end
-
-
 
 last_axis_1_angle = 0
 last_axis_2_angle = 0
