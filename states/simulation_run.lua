@@ -9,6 +9,11 @@ function init(base)
     end 
 
     function sim_run:update()
+      sim_cycles = 1
+
+      for _=0 , sim_cycles do
+        
+     
         for _,entity in pairs(g.var.entitys) do
             entity:update()
         end
@@ -16,6 +21,8 @@ function init(base)
         for _,village in pairs(g.var.villages) do
             village:update()
         end
+
+      end
 
         --g.lib.ui:update()
     end
@@ -30,9 +37,16 @@ function init(base)
         end
 
         for _, village in pairs(g.var.villages) do
-            for _,building in pairs(village.buildings) do
+          
+            for _, building in pairs(village.buildings) do
                 building:draw()
             end
+
+            store_txt =""
+            for stored_thing, number in pairs(village.storage) do
+                store_txt = store_txt .. "\n" .. stored_thing .. ":  " .. number
+            end
+           -- love.graphics.print(store_txt,village.pos.x,village.pos.y)
         end
         
         --g.lib.ui:draw()

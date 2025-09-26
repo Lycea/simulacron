@@ -12,7 +12,7 @@ end
 local function filter_entitys(name)
     local search_results = {}
     for _,entity in pairs(g.var.entitys) do
-        if entity.tags[name] == true and entity:is_active() then
+        if entity.tags[name] == true and entity:is_active() and entity:is_free() then
             table.insert(search_results, _)
         end
     end
@@ -37,7 +37,8 @@ function find:update()
             --print("no results, searching for:",self.to_search)
             self.goal = nil
         else
-            self._found_obj = g.var.entitys[ sorted_results[1] ]
+            self._found_obj = g.var.entitys[sorted_results[1]]
+            self._found_obj.free_slots = self._found_obj.free_slots -1
             self.goal = g.var.entitys[ sorted_results[1] ].pos:copy()
         end
         self.parent.mover:set_goal(self.goal)

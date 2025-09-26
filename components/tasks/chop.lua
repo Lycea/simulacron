@@ -28,19 +28,22 @@ function chop:update()
         local wood = self.chop_target.tree:chop()
         --tree is done
         if wood == 0 and self.wood ~= 0 then
+          self.chop_target.free_slots = self.chop_target.free_slots+1
             --self.parent.villager.village:add_resource("wood", self.wood)
 
-            self.parent.mover:set_goal(self.parent.villager.village.pos)
-            self.move_back = true
-        elseif wood == 0 and self.wood == 0  then
-            self.chop_target = nil
+          self.parent.mover:set_goal(self.parent.villager.village.pos)
+          self.move_back = true
+        elseif wood == 0 and self.wood == 0 then
+          self.chop_target.free_slots = self.chop_target.free_slots + 1
+          self.chop_target = nil
         end
         self.wood = self.wood + wood
     end
 end
 
 function chop:set_target(target)
-    self.chop_target = target
+
+  self.chop_target = target
 end
 
 

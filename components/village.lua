@@ -68,16 +68,19 @@ function village:add_building(what,where)
 end
 
 
-function village:add_resource(ressource,num)
-    self.storage[ressource] = self.storage[ressource]+num
+function village:add_resource(ressource, num)
+  print("adding ressource", ressource, num)
+  self.storage[ressource] = self.storage[ressource] + num
 end
 
-function village:get_ressource(ressource,num)
-    self.storage[ressource] = self.storage[ressource]-num
+function village:get_ressource(ressource, num)
+  print("getting ressource", ressource, num)
+  self.storage[ressource] = self.storage[ressource]-num
 end
 
 function village:update()
     if self.mill then self.mill:update() end
+    if self.campfire then self.campfire:update() end
 end
 
 return village

@@ -29,11 +29,12 @@ function pick:update()
         --tree is done
         if stone == 0 and self.stone ~= 0 then
             --self.parent.villager.village:add_resource("stone", self.stone)
-
-            self.parent.mover:set_goal(self.parent.villager.village.pos)
-            self.move_back = true
-        elseif stone == 0 and self.stone == 0  then
-            self.pick_target = nil
+          self.pick_target.free_slots = self.pick_target.free_slots + 1
+          self.parent.mover:set_goal(self.parent.villager.village.pos)
+          self.move_back = true
+        elseif stone == 0 and self.stone == 0 then
+          self.pick_target.free_slots = self.pick_target.free_slots + 1
+          self.pick_target = nil
         end
         self.stone = self.stone + stone
     end
@@ -41,6 +42,7 @@ end
 
 function pick:set_target(target)
     self.pick_target = target
+    print("free slots", target.free_slots)
 end
 
 

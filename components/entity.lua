@@ -10,7 +10,9 @@ function entity:new(info)
     self.state:on_enter()
     self.tags ={}
     self.color = info.color or nil
-    
+
+    self.free_slots = 2
+
     self.active = info.active or true
     self.active_callbacks ={}
     
@@ -41,9 +43,20 @@ function entity:draw()
     love.graphics.setColor(color[1], color[2], color[3])
     love.graphics.rectangle("fill",self.pos.x* self.size.x  ,self.pos.y* self.size.y,
                               self.size.x ,self.size.y)
-                            
-    love.graphics.setColor(255,255,255)
-    
+
+    love.graphics.setColor(255, 255, 255)
+
+    -- gr.print("free: " .. self.free_slots,
+             -- self.pos.x* self.size.x,(self.pos.y-5)*self.size.y)
+end
+
+function entity:is_free()
+    local is_free = false
+
+    if self.free_slots >0 then
+      is_free = true
+    end
+  return is_free
 end
 
 function entity:is_active()

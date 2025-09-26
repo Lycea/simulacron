@@ -19,7 +19,8 @@ function campfire:draw()
     --fire
     gr.setColor(255,255,0)
     gr.rectangle("fill",self.pos.x*5,self.pos.y*5,5,5)
-    
+
+    gr.setColor(255,255,255)
     --wood
     gr.pop()
   elseif self.state == "ruined" then
