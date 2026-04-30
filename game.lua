@@ -158,6 +158,14 @@ function spawners_.people(x, y)
     }))
 end
 
+function speed_change(id, name, active)
+  print("speed upgrade ?")
+  print(name,g.var.lu_sim_speed[ g.var.id_to_type_list[id]   ])
+  print("speed changed to:" .. name .. "(" .. g.var.lu_sim_speed[g.var.id_to_type_list[id]] ..
+        ")")
+  g.var.sim_speed = g.var.lu_sim_speed[g.var.id_to_type_list[id]]
+end
+
 --- @param name string
 --- @param ui_parent Window | Vertical | Horizontal | SimpleUI
 --- @param callback function
@@ -177,24 +185,42 @@ function setup_ui()
   local g_ui = g.lib.ui
   print("ui placement",scr_h,scr_w)
   g_ui:set_pre_11_colors(true)
+
+  --------------
+  -- speed window
+  ui_infos.sim_speed_window = g_ui:GetObject(g_ui:add_window(0, 0, scr_w/5, scr_h /10)) ---@type Window
+  ui_infos.sim_speed_window:set_layout("horizontal")
   
-  
-  ui_infos.selection_window = g_ui:GetObject( g_ui:add_window(0, (scr_h / 3) * 2, scr_w, scr_h / 3)) ---@type Window
+  ui_infos.sim_speed_window.options.has_background = true
+
+    local speed_win = ui_infos.sim_speed_window
+  speed_win.layout.margin = 0
+
+  speed_win.layout:AddOptionGroup({
+  add_entity_selection("||", speed_win.layout, speed_change),
+  add_entity_selection(">", speed_win.layout, speed_change),
+  add_entity_selection(">>", speed_win.layout, speed_change),
+  add_entity_selection(">>>", speed_win.layout, speed_change)
+  },"speed_changer")
+  --------------
+  -- selection window
+  ui_infos.selection_window = g_ui:GetObject(g_ui:add_window(0, (scr_h / 3) * 2, scr_w, scr_h / 3)) ---@type Window
   ui_infos.selection_window:set_layout("horizontal")
   ui_infos.selection_window.options.has_background = true
 
-  
+
   ui_infos.item_layouts = {}
   ui_infos.item_layouts.l1 = ui_infos.selection_window:GetObject(ui_infos.selection_window:AddVlayout(0, 0, 0, 0))
   ui_infos.item_layouts.l2 = ui_infos.selection_window:AddVlayout(0, 0, 0, 0)
-  ui_infos.item_layouts.l3 = ui_infos.selection_window:AddVlayout(0, 0, 0, 0)
+  ui_infos.item_layouts.l3 = ui_infos.selection_window:GetObject(ui_infos.selection_window:AddVlayout(0, 0, 0, 0))
 
   -- ui_infos.item_layouts.l1:AddToggleButton("tree", 0, 0, 0, 0)
   -- ui_infos.item_layouts.l1:AddToggleButton("stone", 0, 0, 0, 0)
   --   ui_infos.item_layouts.l1:AddToggleButton("person", 0, 0, 0, 0)
 
-
-  layouts = ui_infos.item_layouts
+  local layouts = ui_infos.item_layouts
+  -----------------------
+  -- spawn uis
 
   ui_infos.__toggle_group = {
     add_entity_selection("tree", layouts.l1, spawn_entity),
@@ -205,6 +231,19 @@ function setup_ui()
   layouts.l1:GetObject( ui_infos.__toggle_group[1]):toggle(true)
 
   ui_infos.item_layouts.l1:AddOptionGroup(ui_infos.__toggle_group, "spawn_toggles_1")
+
+  ------------------------
+  -- selection uis
+  ui_infos.__toggle_group_selections = {
+    add_entity_selection("entity", layouts.l3, spawn_entity),
+    add_entity_selection("village", layouts.l3, spawn_entity),
+    add_entity_selection("move_camera", layouts.l3, spawn_entity)
+  }
+
+
+  ui_infos.item_layouts.l3:AddOptionGroup(ui_infos.__toggle_group_selections, "select_toggless")
+
+
 
   ui_infos.selection_window:enable_titlebar(false)
   ui_infos.selection_window:redraw()
@@ -255,7 +294,6 @@ function game.keyHandle(key,s,r,pressed_)
     key_list[key] = nil
   end
 end
-
 
 function game.MouseHandle(x, y, btn)
 

@@ -10,6 +10,7 @@ function entity:new(info)
     self.state:on_enter()
     self.tags ={}
     self.color = info.color or nil
+    self.status = info.status or {update = function() return false  end}
 
     self.free_slots = 2
 
@@ -28,7 +29,11 @@ function entity:add_component(name, value)
 end
 
 function entity:update()
-    self.state:update()
+    if not self.status:update() then
+
+      self.state:update()
+    end
+
     if self.tree then
         local ret =self.tree:check()
         if ret == false then self.color={255,0,0}

@@ -41,7 +41,6 @@ function plot:draw()
 end
 
 
-
 function mill:new(pos,parent)
     self.pos = pos
     self.parent = parent

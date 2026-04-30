@@ -83,6 +83,13 @@ function village:update()
     if self.campfire then self.campfire:update() end
 end
 
+function village:draw()
+  for _, building in pairs(self.buildings) do
+    building:draw()
+  end
+
+end
+
 return village
 
 

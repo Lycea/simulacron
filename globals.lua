@@ -18,6 +18,7 @@ globals.lib.timer     = require("helper.timer")
 
 globals.lib.recipies = require("components.recipies")
 
+globals.lib.stat_handler = require("components.stat_handler")
 globals.lib.entity_states = require("components.entity_states.entity_states")
 globals.lib.entity = require("components.entity")
 
@@ -50,6 +51,7 @@ globals.var = {}
 globals.var.entitys ={}
 globals.var.map ={}
 
+
 globals.var.selected_placement_type = "tree"
 
 globals.var.valid_types             = {
@@ -68,5 +70,12 @@ globals.var.villages = {}
 
 globals.var.ui = {}
 
+globals.var.sim_speed = 5
+globals.var.lu_sim_speed = {
+  ["||"] = 0,
+  [">"]  = 1,
+    [">>"] = 5,
+    [">>>"] = 10
+}
 
 return globals

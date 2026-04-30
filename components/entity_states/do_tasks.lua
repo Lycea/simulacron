@@ -23,7 +23,7 @@ function init(base)
     end
     function do_tasks:update()
         self.parent.mover:update()
-        self.parent.villager:update_tasks()
+        self.parent.villager:update()
     end
 
     return do_tasks

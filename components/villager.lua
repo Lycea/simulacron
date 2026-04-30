@@ -4,20 +4,21 @@ function villager:new(parent)
     self.is_villager = true
     self.parent = parent
     self.job = nil
-
+    self.stats = g.lib.stat_handler(self) 
     self.tasks ={}
 end
 
 
 function villager:search_village()  
     print("searching for village...")
-    for _,village in pairs(g.var.villages) do
-        if self.parent.pos:distance_to(village.pos)< 20 then
+    for _, village in pairs(g.var.villages) do
+        if self.parent.pos:distance_to(village.pos) < 20 then
             self.village = village
-            self.village.population= self.village.population +1
+            self.village.population = self.village.population + 1
             return
         end
     end
+
     -- no village is available in the vicinity, so create a new village
     local new_village = g.lib.village(self.parent.pos.x,self.parent.pos.y)
     self.village = new_village
@@ -43,6 +44,14 @@ function villager:get_task()
     end
 end
 
+function villager:update()
+  self:update_stats()
+  self:update_tasks()
+end
+
+function villager:update_stats()
+  self.stats:update()
+end
 
 function villager:update_tasks()
    --print("updating tasks...")

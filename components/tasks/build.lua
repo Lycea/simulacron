@@ -19,7 +19,8 @@ function build:new(what,who,village_ref)
 
     local radius   = math.floor(love.math.random(1, 10))
     local angle    = love.math.random(0, 360)
-    local pos      = point_in_circle(self._village.pos, radius, angle )
+    local pos      = point_in_circle(self._village.pos, radius, angle)
+    
     pos.x = math.floor(pos.x)
     pos.y = math.floor(pos.y)
     
